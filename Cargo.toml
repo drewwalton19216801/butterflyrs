@@ -7,6 +7,7 @@ license = "MIT"
 readme = "README.md"
 exclude = [".github/*", ".idea/*"]
 authors = ["Drew Walton"]
+repository = "https://github.com/drewwalton19216801/butterflyrs"
 
 [dependencies]
 bitflags = "2.5.0"

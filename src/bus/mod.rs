@@ -38,7 +38,16 @@ pub trait BusDevice {
     /// Returns the end address of the device.
     fn end_address(&self) -> u16;
 
+    /// Returns the size of the device in bytes.
+    ///
+    /// The size is calculated by subtracting the start address from the end address,
+    /// and adding 1 to account for the inclusive range.
+    ///
+    /// # Returns
+    ///
+    /// The size of the device in bytes.
     fn size(&self) -> u16 {
+        // Calculate the size of the device
         self.end_address() - self.start_address() + 1
     }
 }
@@ -51,7 +60,7 @@ pub trait BusDevice {
 pub struct MainBus {
     /// The list of devices connected to the bus.
     ///
-    /// Each device is represented by a `BusDevice` struct.
+    /// Each device is represented by a `Box<dyn BusDevice>` trait object.
     pub devices: Vec<Box<dyn BusDevice>>,
 }
 

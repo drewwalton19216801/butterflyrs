@@ -6,6 +6,7 @@
 //! regions, each of which can be accessed by the CPU.
 
 mod addresses;
+mod addressing;
 
 use std::cell::RefCell;
 use std::fmt::Display;
@@ -14,6 +15,7 @@ use bitflags::bitflags;
 
 use crate::bus::MainBus;
 use crate::cpu::addresses::RESET_VECTOR;
+use crate::cpu::addressing::AddressingMode;
 use crate::register::{Register8, Register16};
 
 /// Represents the 6502 CPU core.
@@ -38,6 +40,24 @@ pub struct Cpu {
 
     /// The program counter register.
     pub pc: Register16,
+
+    /// The number of CPU cycles remaining in the current instruction.
+    pub cycles: u8,
+
+    /// The absolute address as calculated by the instruction's address mode.
+    address_absolute: u16,
+
+    /// The relative address as calculated by the instruction's address mode. Used for branching.
+    address_relative: u16,
+
+    /// The current addressing mode.
+    address_mode: AddressingMode,
+
+    /// The current opcode.
+    opcode: u8,
+
+    /// The current fetched data.
+    fetched_data: u8,
 }
 
 bitflags! {
@@ -98,6 +118,18 @@ impl Cpu {
             sp: Register8::new(),
             // Create a new instance of the `Register16` struct and assign it to the `pc` field of the `Cpu` struct.
             pc: Register16::new(),
+            // Set the `cycles` field of the `Cpu` struct to 0.
+            cycles: 0,
+            // Set the `address_absolute` field of the `Cpu` struct to 0.
+            address_absolute: 0,
+            // Set the `address_relative` field of the `Cpu` struct to 0.
+            address_relative: 0,
+            // Set the `address_mode` field of the `Cpu` struct to `AddressingMode::None`.
+            address_mode: AddressingMode::None,
+            // Set the `opcode` field of the `Cpu` struct to 0.
+            opcode: 0,
+            // Set the `fetched_data` field of the `Cpu` struct to 0.
+            fetched_data: 0,
         }
     }
 

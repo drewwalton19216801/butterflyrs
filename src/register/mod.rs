@@ -1,3 +1,5 @@
+use std::ops::AddAssign;
+
 /// Represents an 8-bit register.
 pub struct Register8 {
     /// The value stored in the register.
@@ -21,6 +23,12 @@ impl Register8 {
     }
 }
 
+impl AddAssign<u8> for Register8 {
+    fn add_assign(&mut self, rhs: u8) {
+        self.value += rhs;
+    }
+}
+
 /// Represents a 16-bit register.
 pub struct Register16 {
     value: u16,
@@ -40,5 +48,11 @@ impl Register16 {
     /// Sets the value stored in the register.
     pub fn set(&mut self, value: u16) {
         self.value = value;
+    }
+}
+
+impl AddAssign<u16> for Register16 {
+    fn add_assign(&mut self, rhs: u16) {
+        self.value += rhs;
     }
 }

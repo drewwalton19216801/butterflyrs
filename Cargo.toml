@@ -1,6 +1,12 @@
 [package]
 name = "butterfly"
+description = "An experiment in 6502 system emulation"
 version = "0.1.0"
 edition = "2021"
+license = "MIT"
+readme = "README.md"
+exclude = [".github/*", ".idea/*"]
+authors = ["Drew Walton"]
 
 [dependencies]
+bitflags = "2.5.0"

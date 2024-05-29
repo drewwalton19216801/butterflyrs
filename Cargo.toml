@@ -1,5 +1,5 @@
 [package]
-name = "butterfly"
+name = "butterflyrs"
 description = "An experiment in 6502 system emulation"
 version = "0.1.0"
 edition = "2021"

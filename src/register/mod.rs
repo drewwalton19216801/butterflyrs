@@ -21,6 +21,18 @@ impl Register8 {
     pub fn set(&mut self, value: u8) {
         self.value = value;
     }
+
+    pub fn remove(&mut self, value: u8) {
+        self.value &= !value;
+    }
+
+    pub fn contains(&self, value: u8) -> bool {
+        self.value & value != 0
+    }
+
+    pub fn sub_assign(&mut self, value: u8) {
+        self.value -= value;
+    }
 }
 
 impl AddAssign<u8> for Register8 {
@@ -31,7 +43,7 @@ impl AddAssign<u8> for Register8 {
 
 /// Represents a 16-bit register.
 pub struct Register16 {
-    value: u16,
+    pub value: u16,
 }
 
 impl Register16 {

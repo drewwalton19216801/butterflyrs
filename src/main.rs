@@ -1,4 +1,5 @@
 use std::cell::RefCell;
+use std::io::Read;
 use std::rc::Rc;
 use crate::bus::{BusDevice, MainBus};
 use crate::cpu::Cpu;
@@ -33,7 +34,12 @@ fn main() {
     emulator.bus.devices.push(io_test_device);
 
     let mut rom_device = BusDevice::new_memory(0xC000, 0xFFFF, Vec::new());
-    rom_device.data = vec![0x00; 0x8000];
+
+    // Load demos/blink.bin
+    let mut file = std::fs::File::open("demos/blink.bin").unwrap();
+    let mut data = Vec::new();
+    file.read_to_end(&mut data).unwrap();
+    rom_device.data = data;
     emulator.bus.devices.push(rom_device);
 
     emulator.cpu.connect_bus(Rc::new(RefCell::new(emulator.bus)));
